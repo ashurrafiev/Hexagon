@@ -9,24 +9,24 @@ import com.xrbpowered.hexagon.Dir;
 import com.xrbpowered.hexagon.HexView;
 import com.xrbpowered.hexagon.Hexagon;
 import com.xrbpowered.zoomui.GraphAssist;
-import com.xrbpowered.zoomui.UIContainer;
 
 public class HexDataView extends HexView<DataTile> {
 
 	public static final Font font = new Font("Consolas", Font.PLAIN, 10);
+	public static final Font fontGlyph = font.deriveFont(Font.BOLD, 18);
 	
 	public static final Color colorTile = Color.WHITE;
 	public static final Color colorLink = new Color(0xaaaaaa);
 	public static final Color colorNewLink = new Color(0x555555);
 	public static final Color colorBlockedLink = new Color(0x770000);
 	
-	public HexDataView(UIContainer parent) {
+	public HexDataView(HexDataGame parent) {
 		super(parent, new Hexagon(64), Color.BLACK);
-		newMap();
 	}
 	
 	public void newMap() {
 		setMap(new DataMap());
+		HexDataGame.status.setPlayer(map().player);
 		Point start = map().start;
 		panToTile(start.x, start.y);
 		resetScale();
@@ -99,11 +99,15 @@ public class HexDataView extends HexView<DataTile> {
 		super.paintTiles(g, clip);
 		g.popAntialiasing();
 	}
+	
+	public boolean isActive() {
+		return map().player.isAlive() && map().core.isAlive();
+	}
 
 	@Override
 	public boolean onMouseDown(float x, float y, Button button, int mods) {
 		if(button==Button.left && hover!=null && map().isInside(hover.x, hover.y)) {
-			if(!map().isPlayerAlive() || !map().core.isAlive())
+			if(!isActive())
 				return true;
 			DataTile tile = map.tiles[hover.x][hover.y];
 			if(tile!=null && tile.interact(map(), hover))

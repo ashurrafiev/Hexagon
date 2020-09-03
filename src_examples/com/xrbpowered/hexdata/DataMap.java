@@ -104,8 +104,7 @@ public class DataMap extends MapBase<DataTile> implements PathMap {
 	}
 	
 	public final Point start = new Point();
-	public int playerAttack = 5;
-	public int playerHealth = 25;
+	public Player player = new Player();
 	public CoreObject core = null;
 	
 	private final Pathfinder distFinder;
@@ -135,11 +134,11 @@ public class DataMap extends MapBase<DataTile> implements PathMap {
 				if(t<=2)
 					tiles[x][y] = null;
 				else if(t==3) {
-					tiles[x][y].object = new ItemObject();
+					tiles[x][y].object = ItemObject.randomItem(random, true);
 					items.add(new Point(x, y));
 				}
 				else if(t==4)
-					tiles[x][y].object = new Enemy(random);
+					tiles[x][y].object = Sentry.randomSentry(random);
 			}
 		if(!new LinkChecker().checkAndClean())
 			return false;
@@ -188,22 +187,13 @@ public class DataMap extends MapBase<DataTile> implements PathMap {
 
 	@Override
 	public void generate() {
+		player = new Player();
 		Random random = new Random();
 		while(!generate(random)) {}
 	}
 	
 	public boolean isInside(int x, int y) {
 		return x>=0 && x<size && y>=0 && y<size;
-	}
-	
-	public void damagePlayer(int damage) {
-		playerHealth -= damage;
-		if(playerHealth<0)
-			playerHealth = 0;
-	}
-	
-	public boolean isPlayerAlive() {
-		return playerHealth>0;
 	}
 	
 	public void discoverArea(Point p) {

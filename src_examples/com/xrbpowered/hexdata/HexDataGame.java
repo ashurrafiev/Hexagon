@@ -9,13 +9,14 @@ import com.xrbpowered.zoomui.swing.SwingWindowFactory;
 
 public class HexDataGame  extends UIContainer implements KeyInputHandler {
 	
-	public final HexDataView game;
-	public final StatusView status;
+	public static HexDataView game;
+	public static StatusView status;
 
 	public HexDataGame(UIContainer parent) {
 		super(parent);
 		game = new HexDataView(this);
-		status = new StatusView(this, game);
+		status = new StatusView(this);
+		game.newMap();
 		getBase().setFocus(this);
 	}
 	
