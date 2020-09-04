@@ -35,6 +35,12 @@ public class HexDataGame  extends UIContainer implements KeyInputHandler {
 				game.newMap();
 				repaint();
 				break;
+			case KeyEvent.VK_Z:
+				status.surgeButton.toggle();
+				break;
+			case KeyEvent.VK_X:
+				status.shieldButton.toggle();
+				break;
 		}
 		return true;
 	}

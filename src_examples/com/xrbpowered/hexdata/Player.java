@@ -2,7 +2,7 @@ package com.xrbpowered.hexdata;
 
 public class Player {
 
-	public static final int surgeMultiplier = 3;
+	public static final double surgeMultiplier = 3.0;
 	
 	public class Mode {
 		public final String name, glyph;
@@ -26,14 +26,20 @@ public class Player {
 		}
 	}
 	
-	public int attack = 5;
-	public int health = 25;
-
-	public Mode surge = new Mode("SURGE", ItemObject.surge.glyph, 1);
-	public Mode shield = new Mode("SHIELD", ItemObject.shield.glyph, 1);
+	public int attack;
+	public int health;
+	public Mode surge;
+	public Mode shield;
+	
+	public Player() {
+		this.attack = LevelProgression.playerBaseAttack;
+		this.health = LevelProgression.playerBaseHealth;
+		this.surge = new Mode("SURGE", ItemObject.surge.glyph, LevelProgression.startSurge);
+		this.shield = new Mode("SHIELD", ItemObject.shield.glyph, LevelProgression.startShield);
+	}
 	
 	public int getAttackModified() {
-		return surge.canUse() ? surgeMultiplier*attack : attack;
+		return (int)Math.ceil((surge.canUse() ? surgeMultiplier : 1.0)*GlobalEffect.inhibitorMultiplier*attack);
 	}
 	
 	public void damage(int damage) {

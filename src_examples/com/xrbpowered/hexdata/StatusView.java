@@ -9,7 +9,7 @@ import com.xrbpowered.zoomui.base.UIHoverElement;
 public class StatusView extends UIContainer {
 
 	public static final Color colorBg = new Color(0xaa000000, true);
-	public static final Color colorBorder = new Color(0xaaaaaa);
+	public static final Color colorBorder = new Color(0x777777);
 	public static final Color colorFrame = new Color(0xcccccc);
 	public static final Color colorPlayer = Color.WHITE;
 	public static final Color colorPlayerBg = new Color(0x777777);
@@ -50,12 +50,17 @@ public class StatusView extends UIContainer {
 			g.popPureStroke();
 		}
 		
-		@Override
-		public boolean onMouseDown(float x, float y, Button button, int mods) {
-			if(button==Button.left) {
+		public void toggle() {
+			if(HexDataGame.game.isActive()) {
 				mode.enabled = !mode.enabled;
 				repaint();
 			}
+		}
+		
+		@Override
+		public boolean onMouseDown(float x, float y, Button button, int mods) {
+			if(button==Button.left)
+				toggle();
 			return true;
 		}
 	}
@@ -122,7 +127,7 @@ public class StatusView extends UIContainer {
 		g.graph.drawOval(-40, -40, 80, 80);
 		g.drawString("STRENGTH", 0, -48, GraphAssist.CENTER, GraphAssist.BOTTOM);
 		g.drawString("INTEGRITY", 0, 48, GraphAssist.CENTER, GraphAssist.TOP);
-		g.setColor(player.surge.canUse() ? colorModeOn : Color.WHITE);
+		g.setColor(player.surge.canUse() ? colorModeOn : GlobalEffect.inhibitorMultiplier<1 ? Color.RED : Color.WHITE);
 		g.drawString(Integer.toString(player.getAttackModified()), 0, -24, GraphAssist.CENTER, GraphAssist.BOTTOM);
 		g.setColor(dead ? Color.RED : player.shield.canUse() ? colorModeOn : Color.WHITE);
 		g.drawString(Integer.toString(player.health), 0, 24, GraphAssist.CENTER, GraphAssist.TOP);
@@ -130,6 +135,11 @@ public class StatusView extends UIContainer {
 		g.popTx();
 		g.popAntialiasing();
 		g.popPureStroke();
+		
+		g.setFont(HexDataView.fontGlyph);
+		g.setColor(Color.WHITE);
+		g.drawString(String.format("LEVEL %d", LevelProgression.level), 40, getHeight()/2, GraphAssist.LEFT, GraphAssist.CENTER);
+		g.setFont(HexDataView.font);
 	}
 	
 	@Override

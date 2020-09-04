@@ -13,8 +13,6 @@ import com.xrbpowered.hexagon.Pathfinder;
 
 public class DataMap extends MapBase<DataTile> implements PathMap {
 
-	public static final int size = 17;
-	
 	private class LinkCheckerTile {
 		public int index = -1;
 		public boolean visited = false;
@@ -25,7 +23,7 @@ public class DataMap extends MapBase<DataTile> implements PathMap {
 		public int index = -1;
 		
 		public LinkChecker() {
-			super(LinkCheckerTile.class, DataMap.size);
+			super(LinkCheckerTile.class, DataMap.this.size);
 			pathfinder = new Pathfinder(this);
 			clear();
 		}
@@ -110,7 +108,7 @@ public class DataMap extends MapBase<DataTile> implements PathMap {
 	private final Pathfinder distFinder;
 	
 	public DataMap() {
-		super(DataTile.class, size);
+		super(DataTile.class, LevelProgression.mapSize);
 		distFinder = new Pathfinder(this);
 		generate();
 	}
@@ -229,6 +227,23 @@ public class DataMap extends MapBase<DataTile> implements PathMap {
 					}
 				}
 				tiles[x][y].blocked = blocked;
+			}
+	}
+	
+	public void updateEffects() {
+		GlobalEffect.resetAll();
+		for(int x=0; x<size; x++)
+			for(int y=0; y<size; y++) {
+				if(tiles[x][y]==null || !tiles[x][y].discovered || tiles[x][y].object==null)
+					continue;
+				GlobalEffect.addCount(tiles[x][y].object.globalEffect());
+			}
+		GlobalEffect.applyAllGlobal();
+		for(int x=0; x<size; x++)
+			for(int y=0; y<size; y++) {
+				if(tiles[x][y]==null || !tiles[x][y].discovered || tiles[x][y].object==null)
+					continue;
+				GlobalEffect.applyAllToObject(tiles[x][y].object);
 			}
 	}
 

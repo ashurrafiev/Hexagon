@@ -6,6 +6,10 @@ import com.xrbpowered.zoomui.GraphAssist;
 
 public abstract class TileObject {
 
+	public GlobalEffect globalEffect() {
+		return null;
+	}
+	
 	public boolean isBlocking() {
 		return false;
 	}

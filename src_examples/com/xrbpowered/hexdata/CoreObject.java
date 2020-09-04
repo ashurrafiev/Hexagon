@@ -14,11 +14,7 @@ public class CoreObject extends Enemy {
 	public static final Color colorBlockedBg = new Color(0x222222);
 
 	public CoreObject() {
-		super(3, 25);
-	}
-	
-	public boolean isAlive() {
-		return health>0;
+		super(LevelProgression.coreAttack, LevelProgression.coreHealth);
 	}
 	
 	@Override
@@ -28,7 +24,11 @@ public class CoreObject extends Enemy {
 
 	@Override
 	public boolean interact(DataMap map, Point pos) {
-		super.interact(map, pos);
+		if(isAlive()) {
+			super.interact(map, pos);
+			if(!isAlive())
+				LevelProgression.nextLevel();
+		}
 		return false;
 	}
 
@@ -62,9 +62,9 @@ public class CoreObject extends Enemy {
 		g.resetStroke();
 		g.setColor(highlight ? fg : Color.BLACK);
 		g.graph.drawOval(-40, -40, 80, 80);
-		g.setColor(Color.WHITE);
-		g.drawString(Integer.toString(attack), 0, -24, GraphAssist.CENTER, GraphAssist.BOTTOM);
-		if(dead) g.setColor(fg);
+		g.setColor(GlobalEffect.catalystMultiplier>1 ? StatusView.colorModeOn : Color.WHITE);
+		g.drawString(Integer.toString(getAttackModified()), 0, -24, GraphAssist.CENTER, GraphAssist.BOTTOM);
+		g.setColor(dead ? fg : Color.WHITE);
 		g.drawString(Integer.toString(health), 0, 24, GraphAssist.CENTER, GraphAssist.TOP);
 	}
 

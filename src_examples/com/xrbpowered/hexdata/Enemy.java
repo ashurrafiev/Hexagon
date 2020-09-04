@@ -12,9 +12,17 @@ public abstract class Enemy extends TileObject {
 		this.health = health;
 	}
 	
+	public boolean isAlive() {
+		return health>0;
+	}
+	
 	@Override
 	public boolean isSource() {
 		return false;
+	}
+	
+	public int getAttackModified() {
+		return (int)Math.ceil(attack*GlobalEffect.catalystMultiplier);
 	}
 
 	@Override
@@ -23,8 +31,8 @@ public abstract class Enemy extends TileObject {
 		if(health<0)
 			health = 0;
 		map.player.surge.use();
-		map.player.damage(attack);
-		return health<=0;
+		map.player.damage(getAttackModified());
+		return !isAlive();
 	}
 
 }

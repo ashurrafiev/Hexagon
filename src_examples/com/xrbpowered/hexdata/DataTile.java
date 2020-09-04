@@ -20,11 +20,13 @@ public class DataTile {
 				object = null;
 				map.updateBlocks();
 			}
+			map.updateEffects();
 			return true;
 		}
 		if(!visited) {
 			visited = true;
 			map.discoverArea(pos);
+			map.updateEffects();
 			return true;
 		}
 		return false;
