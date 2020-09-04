@@ -26,8 +26,10 @@ public class CoreObject extends Enemy {
 	public boolean interact(DataMap map, Point pos) {
 		if(isAlive()) {
 			super.interact(map, pos);
-			if(!isAlive())
+			if(!isAlive()) {
 				LevelProgression.nextLevel();
+				HexDataGame.status.showEnd(true);
+			}
 		}
 		return false;
 	}

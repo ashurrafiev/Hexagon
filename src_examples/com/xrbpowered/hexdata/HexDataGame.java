@@ -31,9 +31,8 @@ public class HexDataGame  extends UIContainer implements KeyInputHandler {
 	@Override
 	public boolean onKeyPressed(char c, int code, int mods) {
 		switch(code) {
-			case KeyEvent.VK_BACK_SPACE:
-				game.newMap();
-				repaint();
+			case KeyEvent.VK_ENTER:
+				status.newMap();
 				break;
 			case KeyEvent.VK_Z:
 				status.surgeButton.toggle();

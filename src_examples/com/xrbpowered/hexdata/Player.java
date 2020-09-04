@@ -43,6 +43,8 @@ public class Player {
 	}
 	
 	public void damage(int damage) {
+		if(!isAlive())
+			return;
 		if(damage>0 && shield.canUse()) {
 			shield.use();
 			return;
@@ -50,6 +52,8 @@ public class Player {
 		health -= damage;
 		if(health<0)
 			health = 0;
+		if(!isAlive())
+			HexDataGame.status.showEnd(false);
 	}
 	
 	public boolean isAlive() {
