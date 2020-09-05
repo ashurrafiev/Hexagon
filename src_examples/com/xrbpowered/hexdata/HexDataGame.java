@@ -53,7 +53,7 @@ public class HexDataGame  extends UIContainer implements KeyInputHandler {
 	}
 	
 	public static void main(String[] args) {
-		SwingFrame frame = SwingWindowFactory.use().createFrame("Data Analysis", 1200, 800);
+		SwingFrame frame = SwingWindowFactory.use().createFrame("Data Analysis", 1920, 1080);
 		new HexDataGame(frame.getContainer());
 		frame.maximize();
 		frame.show();

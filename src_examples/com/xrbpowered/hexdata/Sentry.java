@@ -29,13 +29,13 @@ public class Sentry extends Enemy {
 	@Override
 	public void paint(GraphAssist g, boolean highlight, boolean blocked) {
 		g.setColor(colorEnemyBg);
-		g.graph.fillOval(-12, -12, 24, 24);
-		g.setStroke(2f);
+		g.graph.fillOval(-18, -18, 36, 36);
+		g.setStroke(3f);
 		g.setColor(colorEnemy);
-		g.graph.drawOval(-12, -12, 24, 24);
+		g.graph.drawOval(-18, -18, 36, 36);
 		if(highlight) {
 			g.resetStroke();
-			g.graph.drawOval(-16, -16, 32, 32);
+			g.graph.drawOval(-24, -24, 48, 48);
 		}
 		if(glyph!=null) {
 			g.setFont(HexDataView.fontGlyph);
@@ -44,9 +44,9 @@ public class Sentry extends Enemy {
 			g.setFont(HexDataView.font);
 		}
 		g.setColor(GlobalEffect.catalystMultiplier>1 ? StatusView.colorModeOn : Color.WHITE);
-		g.drawString(Integer.toString(getAttackModified()), 0, -16, GraphAssist.CENTER, GraphAssist.BOTTOM);
+		g.drawString(Integer.toString(getAttackModified()), 0, -24, GraphAssist.CENTER, GraphAssist.BOTTOM);
 		g.setColor(Color.WHITE);
-		g.drawString(Integer.toString(health), 0, 16, GraphAssist.CENTER, GraphAssist.TOP);
+		g.drawString(Integer.toString(health), 0, 24, GraphAssist.CENTER, GraphAssist.TOP);
 	}
 
 	public static Sentry randomSentry(Random random) {

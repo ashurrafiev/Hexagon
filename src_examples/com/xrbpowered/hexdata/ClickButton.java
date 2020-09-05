@@ -10,8 +10,7 @@ import com.xrbpowered.zoomui.base.UIHoverElement;
 
 public class ClickButton extends UIHoverElement {
 
-	public static final int height = 32;
-	public static final int delta = 9;
+	public static final int height = 48;
 	
 	public static final Color[] paletteRed = {Color.WHITE, new Color(0x550000), new Color(0xdd0000)};
 	public static final Color[] paletteGreen = {Color.WHITE, new Color(0x005522), new Color(0x00dd55)};
@@ -35,6 +34,7 @@ public class ClickButton extends UIHoverElement {
 	@Override
 	public void setSize(float width, float height) {
 		super.setSize(width, height);
+		float delta = (float)Math.round(height*0.5/Math.tan(Math.PI/3.0));
 		Path2D.Float p = new Path2D.Float();
 		p.moveTo(0, height/2);
 		p.lineTo(delta, 0);

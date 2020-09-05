@@ -40,34 +40,34 @@ public class CoreObject extends Enemy {
 		Color fg = blocked ? colorBlocked : colorCore;
 		Color bg = blocked ? colorBlockedBg : colorCoreBg;
 		g.setColor(colorBg);
-		g.graph.fillOval(-40, -40, 80, 80);
+		g.graph.fillOval(-60, -60, 120, 120);
 		g.setColor(dead ? Color.BLACK : bg);
-		g.graph.fillOval(-20, -20, 40, 40);
+		g.graph.fillOval(-30, -30, 60, 60);
 		if(!dead) {
 			g.setColor(Color.BLACK);
-			g.graph.fillOval(-14, -14, 28, 28);
+			g.graph.fillOval(-21, -21, 42, 42);
 			g.setColor(bg);
-			g.graph.fillOval(-10, -10, 20, 20);
+			g.graph.fillOval(-15, -15, 30, 30);
 			g.setColor(fg);
-			g.setStroke(1.5f);
-			float d = 20 / (float)Math.sqrt(2);
+			g.setStroke(2f);
+			float d = 30 / (float)Math.sqrt(2);
 			g.line(-d, -d, d, d);
 			g.line(-d, d, d, -d);
 			g.resetStroke();
 			g.setColor(fg);
-			g.graph.drawOval(-14, -14, 28, 28);
-			g.graph.fillOval(-4, -4, 8, 8);
+			g.graph.drawOval(-21, -21, 42, 42);
+			g.graph.fillOval(-6, -6, 12, 12);
 		}
-		g.setStroke(2f);
+		g.setStroke(3f);
 		g.setColor(fg);
-		g.graph.drawOval(-20, -20, 40, 40);
+		g.graph.drawOval(-30, -30, 60, 60);
 		g.resetStroke();
 		g.setColor(highlight ? fg : Color.BLACK);
-		g.graph.drawOval(-40, -40, 80, 80);
+		g.graph.drawOval(-60, -60, 120, 120);
 		g.setColor(GlobalEffect.catalystMultiplier>1 ? StatusView.colorModeOn : Color.WHITE);
-		g.drawString(Integer.toString(getAttackModified()), 0, -24, GraphAssist.CENTER, GraphAssist.BOTTOM);
+		g.drawString(Integer.toString(getAttackModified()), 0, -36, GraphAssist.CENTER, GraphAssist.BOTTOM);
 		g.setColor(dead ? fg : Color.WHITE);
-		g.drawString(Integer.toString(health), 0, 24, GraphAssist.CENTER, GraphAssist.TOP);
+		g.drawString(Integer.toString(health), 0, 36, GraphAssist.CENTER, GraphAssist.TOP);
 	}
 
 

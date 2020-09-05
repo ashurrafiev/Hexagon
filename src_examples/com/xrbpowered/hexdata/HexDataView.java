@@ -12,8 +12,8 @@ import com.xrbpowered.zoomui.GraphAssist;
 
 public class HexDataView extends HexView<DataTile> {
 
-	public static final Font font = new Font("Consolas", Font.PLAIN, 10);
-	public static final Font fontGlyph = font.deriveFont(Font.BOLD, 18);
+	public static final Font font = new Font("Consolas", Font.PLAIN, 15);
+	public static final Font fontGlyph = font.deriveFont(Font.BOLD, 27);
 	
 	public static final Color colorTile = Color.WHITE;
 	public static final Color colorLink = new Color(0xaaaaaa);
@@ -21,7 +21,7 @@ public class HexDataView extends HexView<DataTile> {
 	public static final Color colorBlockedLink = new Color(0x770000);
 	
 	public HexDataView(HexDataGame parent) {
-		super(parent, new Hexagon(64), Color.BLACK);
+		super(parent, new Hexagon(96), Color.BLACK);
 	}
 	
 	public void newMap() {
@@ -48,14 +48,14 @@ public class HexDataView extends HexView<DataTile> {
 		}
 		else if(tile.visited) {
 			g.setColor(tile.blocked ? colorBlockedLink : colorLink);
-			g.graph.fillOval(-4, -4, 8, 8);
+			g.graph.fillOval(-6, -6, 12, 12);
 		}
 		else {
 			g.setColor(highlight ? colorNewLink : Color.BLACK);
-			g.graph.fillOval(-10, -10, 20, 20);
-			g.setStroke(1.5f);
+			g.graph.fillOval(-15, -15, 30, 30);
+			g.setStroke(2f);
 			g.setColor(highlight ? Color.WHITE : tile.blocked ? colorBlockedLink : colorLink);
-			g.graph.drawOval(-10, -10, 20, 20);
+			g.graph.drawOval(-15, -15, 30, 30);
 			if(tile.dist>=0 && tile.dist<10) {
 				g.setColor(Color.WHITE);
 				g.drawString(Integer.toString(tile.dist), 0, 0, GraphAssist.CENTER, GraphAssist.CENTER);
@@ -68,7 +68,7 @@ public class HexDataView extends HexView<DataTile> {
 		g.setFont(font);
 		g.pushAntialiasing(true);
 		
-		g.setStroke(1.5f);
+		g.setStroke(2f);
 		for(int x=0; x<map.size; x++)
 			for(int y=0; y<map.size; y++) {
 				DataTile tile = map.tiles[x][y]; 

@@ -22,7 +22,7 @@ public class StatusView extends UIContainer {
 		
 		public ModeButton() {
 			super(StatusView.this);
-			setSize(100, 0);
+			setSize(150, 0);
 		}
 		
 		@Override
@@ -39,11 +39,11 @@ public class StatusView extends UIContainer {
 					mode.canUse() ? colorModeOn : mode.count==0 ? colorModeNone : colorModeOff,
 					hover && HexDataGame.game.isActive());
 			g.setColor(colorFrame);
-			g.drawString(mode.name, 0, -48, GraphAssist.CENTER, GraphAssist.BOTTOM);
+			g.drawString(mode.name, 0, -72, GraphAssist.CENTER, GraphAssist.BOTTOM);
 			g.setColor(mode.canUse() ? colorModeOn : colorBorder);
-			g.drawString(mode.enabled ? "ON" : "OFF", 0, -24, GraphAssist.CENTER, GraphAssist.BOTTOM);
+			g.drawString(mode.enabled ? "ON" : "OFF", 0, -36, GraphAssist.CENTER, GraphAssist.BOTTOM);
 			g.setColor(mode.count==0 ? Color.RED : Color.WHITE);
-			g.drawString(Integer.toString(mode.count), 0, 24, GraphAssist.CENTER, GraphAssist.TOP);
+			g.drawString(Integer.toString(mode.count), 0, 36, GraphAssist.CENTER, GraphAssist.TOP);
 			
 			g.popTx();
 			g.popAntialiasing();
@@ -77,11 +77,11 @@ public class StatusView extends UIContainer {
 		super(parent);
 		surgeButton = new ModeButton();
 		shieldButton = new ModeButton();
-		defeatButton = new ClickButton(this, "TRY AGAIN", 200, ClickButton.paletteRed) {
+		defeatButton = new ClickButton(this, "TRY AGAIN", 300, ClickButton.paletteRed) {
 			@Override
 			public void paint(GraphAssist g) {
 				super.paint(g);
-				g.drawString("DEFEAT!", -40, getHeight()/2, GraphAssist.RIGHT, GraphAssist.CENTER);
+				g.drawString("DEFEAT!", -60, getHeight()/2, GraphAssist.RIGHT, GraphAssist.CENTER);
 			}
 			@Override
 			public void onClick() {
@@ -89,11 +89,11 @@ public class StatusView extends UIContainer {
 			}
 		};
 		defeatButton.setVisible(false);
-		victoryButton = new ClickButton(this, "NEXT BATTLE", 200, ClickButton.paletteGreen) {
+		victoryButton = new ClickButton(this, "NEXT BATTLE", 300, ClickButton.paletteGreen) {
 			@Override
 			public void paint(GraphAssist g) {
 				super.paint(g);
-				g.drawString("VICTORY!", -40, getHeight()/2, GraphAssist.RIGHT, GraphAssist.CENTER);
+				g.drawString("VICTORY!", -60, getHeight()/2, GraphAssist.RIGHT, GraphAssist.CENTER);
 			}
 			@Override
 			public void onClick() {
@@ -101,7 +101,7 @@ public class StatusView extends UIContainer {
 			}
 		};
 		victoryButton.setVisible(false);
-		setSize(0, 140);
+		setSize(0, 210);
 	}
 	
 	public void setPlayer(Player player) {
@@ -131,9 +131,9 @@ public class StatusView extends UIContainer {
 	@Override
 	public void layout() {
 		surgeButton.setSize(surgeButton.getWidth(), getHeight());
-		surgeButton.setLocation(getWidth()/2-surgeButton.getWidth()/2-100, 0);
+		surgeButton.setLocation(getWidth()/2-surgeButton.getWidth()/2-150, 0);
 		shieldButton.setSize(shieldButton.getWidth(), getHeight());
-		shieldButton.setLocation(getWidth()/2-shieldButton.getWidth()/2+100, 0);
+		shieldButton.setLocation(getWidth()/2-shieldButton.getWidth()/2+150, 0);
 		defeatButton.setLocation(getWidth()-defeatButton.getWidth()-40, getHeight()/2-defeatButton.getHeight()/2);
 		victoryButton.setLocation(getWidth()-victoryButton.getWidth()-40, getHeight()/2-victoryButton.getHeight()/2);
 		super.layout();
@@ -156,29 +156,29 @@ public class StatusView extends UIContainer {
 		g.translate(getWidth()/2, getHeight()/2);
 		
 		g.setColor(Color.BLACK);
-		g.graph.fillOval(-40, -40, 80, 80);
+		g.graph.fillOval(-60, -60, 120, 120);
 		if(!dead) {
 			g.setColor(colorPlayerBg);
-			g.graph.fillOval(-16, -16, 32, 32);
+			g.graph.fillOval(-24, -24, 48, 48);
 			g.setColor(colorPlayer);
 			g.resetStroke();
-			g.graph.drawOval(-16, -16, 32, 32);
-			g.graph.drawOval(-8, -8, 16, 16);
-			g.line(0, -16, 0, 16);
-			g.line(-16, 0, 16, 0);
+			g.graph.drawOval(-24, -24, 48, 48);
+			g.graph.drawOval(-12, -12, 24, 24);
+			g.line(0, -24, 0, 24);
+			g.line(-24, 0, 24, 0);
 		}
-		g.setStroke(2f);
+		g.setStroke(3f);
 		g.setColor(dead ? Color.RED : colorPlayer);
-		g.graph.drawOval(-20, -20, 40, 40);
+		g.graph.drawOval(-30, -30, 60, 60);
 		g.resetStroke();
 		g.setColor(colorFrame);
-		g.graph.drawOval(-40, -40, 80, 80);
-		g.drawString("STRENGTH", 0, -48, GraphAssist.CENTER, GraphAssist.BOTTOM);
-		g.drawString("INTEGRITY", 0, 48, GraphAssist.CENTER, GraphAssist.TOP);
+		g.graph.drawOval(-60, -60, 120, 120);
+		g.drawString("STRENGTH", 0, -72, GraphAssist.CENTER, GraphAssist.BOTTOM);
+		g.drawString("INTEGRITY", 0, 72, GraphAssist.CENTER, GraphAssist.TOP);
 		g.setColor(player.surge.canUse() ? colorModeOn : GlobalEffect.inhibitorMultiplier<1 ? Color.RED : Color.WHITE);
-		g.drawString(Integer.toString(player.getAttackModified()), 0, -24, GraphAssist.CENTER, GraphAssist.BOTTOM);
+		g.drawString(Integer.toString(player.getAttackModified()), 0, -36, GraphAssist.CENTER, GraphAssist.BOTTOM);
 		g.setColor(dead ? Color.RED : player.shield.canUse() ? colorModeOn : Color.WHITE);
-		g.drawString(Integer.toString(player.health), 0, 24, GraphAssist.CENTER, GraphAssist.TOP);
+		g.drawString(Integer.toString(player.health), 0, 36, GraphAssist.CENTER, GraphAssist.TOP);
 		
 		g.popTx();
 		g.popAntialiasing();
@@ -186,11 +186,11 @@ public class StatusView extends UIContainer {
 		
 		g.setFont(HexDataView.fontGlyph);
 		g.setColor(Color.WHITE);
-		g.drawString(String.format("LEVEL %d", LevelProgression.level), 40, getHeight()/2, GraphAssist.LEFT, GraphAssist.CENTER);
+		g.drawString(String.format("LEVEL %d", LevelProgression.level), 60, getHeight()/2, GraphAssist.LEFT, GraphAssist.CENTER);
 		if(LevelProgression.level>0) {
 			g.setFont(HexDataView.font);
 			g.setColor(colorFrame);
-			g.drawString("Difficulty increases: "+LevelProgression.nextLevelText(), 40, getHeight()/2+16, GraphAssist.LEFT, GraphAssist.TOP);
+			g.drawString("Difficulty increases: "+LevelProgression.nextLevelText(), 60, getHeight()/2+24, GraphAssist.LEFT, GraphAssist.TOP);
 		}
 	}
 	

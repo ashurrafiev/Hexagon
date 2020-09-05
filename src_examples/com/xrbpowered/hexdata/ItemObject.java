@@ -35,10 +35,10 @@ public abstract class ItemObject extends TileObject {
 	
 	public static void paintItem(GraphAssist g, String glyph, Color color, boolean highlight) {
 		g.setColor(color);
-		g.graph.fillOval(-13, -13, 26, 26);
+		g.graph.fillOval(-18, -18, 36, 36);
 		if(highlight) {
 			g.resetStroke();
-			g.graph.drawOval(-16, -16, 32, 32);
+			g.graph.drawOval(-24, -24, 48, 48);
 		}
 		if(glyph!=null) {
 			g.setFont(HexDataView.fontGlyph);
