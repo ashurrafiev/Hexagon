@@ -14,6 +14,7 @@ public class ClickButton extends UIHoverElement {
 	
 	public static final Color[] paletteRed = {Color.WHITE, new Color(0x550000), new Color(0xdd0000)};
 	public static final Color[] paletteGreen = {Color.WHITE, new Color(0x005522), new Color(0x00dd55)};
+	public static final Color[] paletteDisabled = {new Color(0xaaaaaa), Color.BLACK, new Color(0x777777)};
 	
 	public static final int colorText = 0;
 	public static final int colorBg = 1;
@@ -30,7 +31,11 @@ public class ClickButton extends UIHoverElement {
 		this.palette = palette;
 		setSize(width, height);
 	}
-	
+
+	public ClickButton(UIContainer parent, int width) {
+		this(parent, null, width, null);
+	}
+
 	@Override
 	public void setSize(float width, float height) {
 		super.setSize(width, height);
@@ -45,6 +50,14 @@ public class ClickButton extends UIHoverElement {
 		p.closePath();
 		this.outline = p;
 	}
+	
+	public boolean isEnabled() {
+		return true;
+	}
+	
+	public Color[] getPalette() {
+		return isEnabled() ? palette : paletteDisabled;
+	}
 
 	public String getLabel() {
 		return label;
@@ -55,6 +68,8 @@ public class ClickButton extends UIHoverElement {
 	
 	@Override
 	public void paint(GraphAssist g) {
+		Color[] palette = getPalette();
+		boolean hover = this.hover && isEnabled();
 		g.setColor(hover ? palette[colorBorder] : palette[colorBg]);
 		g.graph.fill(outline);
 		if(!hover) {
@@ -69,7 +84,7 @@ public class ClickButton extends UIHoverElement {
 	
 	@Override
 	public boolean onMouseDown(float x, float y, Button button, int mods) {
-		if(button==Button.left)
+		if(button==Button.left && isEnabled())
 			onClick();
 		return true;
 	}

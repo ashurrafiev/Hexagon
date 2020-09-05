@@ -11,11 +11,17 @@ public class HexDataGame  extends UIContainer implements KeyInputHandler {
 	
 	public static HexDataView game;
 	public static StatusView status;
+	public static VictoryDialog victoryDialog;
+	public static LevelUpDialog levelUpDialog;
 
 	public HexDataGame(UIContainer parent) {
 		super(parent);
 		game = new HexDataView(this);
 		status = new StatusView(this);
+		victoryDialog = new VictoryDialog(this);
+		victoryDialog.setVisible(false);
+		levelUpDialog = new LevelUpDialog(this);
+		levelUpDialog.setVisible(false);
 		game.newMap();
 		getBase().setFocus(this);
 	}
@@ -25,6 +31,8 @@ public class HexDataGame  extends UIContainer implements KeyInputHandler {
 		game.getParent().setSize(getWidth(), getHeight());
 		status.setSize(getWidth(), status.getHeight());
 		status.setLocation(0, getHeight()-status.getHeight());
+		victoryDialog.setLocation(getWidth()/2-victoryDialog.getWidth()/2, getHeight()-status.getHeight()-victoryDialog.getHeight()-36);
+		levelUpDialog.setLocation(getWidth()/2-levelUpDialog.getWidth()/2, getHeight()-status.getHeight()-levelUpDialog.getHeight()-36);
 		super.layout();
 	}
 	
@@ -32,7 +40,7 @@ public class HexDataGame  extends UIContainer implements KeyInputHandler {
 	public boolean onKeyPressed(char c, int code, int mods) {
 		switch(code) {
 			case KeyEvent.VK_ENTER:
-				status.newMap();
+				//status.newMap();
 				break;
 			case KeyEvent.VK_Z:
 				status.surgeButton.toggle();
@@ -51,7 +59,7 @@ public class HexDataGame  extends UIContainer implements KeyInputHandler {
 	@Override
 	public void onFocusLost() {
 	}
-	
+
 	public static void main(String[] args) {
 		SwingFrame frame = SwingWindowFactory.use().createFrame("Data Analysis", 1920, 1080);
 		new HexDataGame(frame.getContainer());

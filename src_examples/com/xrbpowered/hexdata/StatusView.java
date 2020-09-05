@@ -68,39 +68,12 @@ public class StatusView extends UIContainer {
 	public final ModeButton surgeButton;
 	public final ModeButton shieldButton;
 
-	public final ClickButton defeatButton;
-	public final ClickButton victoryButton;
-
 	public Player player;
 	
 	public StatusView(UIContainer parent) {
 		super(parent);
 		surgeButton = new ModeButton();
 		shieldButton = new ModeButton();
-		defeatButton = new ClickButton(this, "TRY AGAIN", 300, ClickButton.paletteRed) {
-			@Override
-			public void paint(GraphAssist g) {
-				super.paint(g);
-				g.drawString("DEFEAT!", -60, getHeight()/2, GraphAssist.RIGHT, GraphAssist.CENTER);
-			}
-			@Override
-			public void onClick() {
-				newMap();
-			}
-		};
-		defeatButton.setVisible(false);
-		victoryButton = new ClickButton(this, "NEXT BATTLE", 300, ClickButton.paletteGreen) {
-			@Override
-			public void paint(GraphAssist g) {
-				super.paint(g);
-				g.drawString("VICTORY!", -60, getHeight()/2, GraphAssist.RIGHT, GraphAssist.CENTER);
-			}
-			@Override
-			public void onClick() {
-				newMap();
-			}
-		};
-		victoryButton.setVisible(false);
 		setSize(0, 210);
 	}
 	
@@ -108,24 +81,6 @@ public class StatusView extends UIContainer {
 		this.player = player;
 		this.surgeButton.mode = player.surge;
 		this.shieldButton.mode = player.shield;
-		defeatButton.setVisible(false);
-		victoryButton.setVisible(false);
-	}
-	
-	public void showEnd(boolean victory) {
-		if(victory) {
-			defeatButton.setVisible(false);
-			victoryButton.setVisible(true);
-		}
-		else if(!victoryButton.isVisible())
-			defeatButton.setVisible(true);
-	}
-	
-	public void newMap() {
-		if(!HexDataGame.game.isActive()) {
-			HexDataGame.game.newMap();
-			repaint();
-		}
 	}
 	
 	@Override
@@ -134,8 +89,6 @@ public class StatusView extends UIContainer {
 		surgeButton.setLocation(getWidth()/2-surgeButton.getWidth()/2-150, 0);
 		shieldButton.setSize(shieldButton.getWidth(), getHeight());
 		shieldButton.setLocation(getWidth()/2-shieldButton.getWidth()/2+150, 0);
-		defeatButton.setLocation(getWidth()-defeatButton.getWidth()-40, getHeight()/2-defeatButton.getHeight()/2);
-		victoryButton.setLocation(getWidth()-victoryButton.getWidth()-40, getHeight()/2-victoryButton.getHeight()/2);
 		super.layout();
 	}
 	
@@ -187,11 +140,9 @@ public class StatusView extends UIContainer {
 		g.setFont(HexDataView.fontGlyph);
 		g.setColor(Color.WHITE);
 		g.drawString(String.format("LEVEL %d", LevelProgression.level), 60, getHeight()/2, GraphAssist.LEFT, GraphAssist.CENTER);
-		if(LevelProgression.level>0) {
-			g.setFont(HexDataView.font);
-			g.setColor(colorFrame);
-			g.drawString("Difficulty increases: "+LevelProgression.nextLevelText(), 60, getHeight()/2+24, GraphAssist.LEFT, GraphAssist.TOP);
-		}
+		g.setFont(HexDataView.font);
+		g.setColor(colorFrame);
+		g.drawString("BATTLE "+LevelProgression.battleCount, 60, getHeight()/2+24, GraphAssist.LEFT, GraphAssist.TOP);
 	}
 	
 	@Override
