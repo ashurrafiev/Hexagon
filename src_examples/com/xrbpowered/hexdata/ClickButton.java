@@ -14,6 +14,7 @@ public class ClickButton extends UIHoverElement {
 	
 	public static final Color[] paletteRed = {Color.WHITE, new Color(0x550000), new Color(0xdd0000)};
 	public static final Color[] paletteGreen = {Color.WHITE, new Color(0x005522), new Color(0x00dd55)};
+	public static final Color[] paletteBlack = {Color.WHITE, Color.BLACK, new Color(0x777777)};
 	public static final Color[] paletteDisabled = {new Color(0xaaaaaa), Color.BLACK, new Color(0x777777)};
 	
 	public static final int colorText = 0;

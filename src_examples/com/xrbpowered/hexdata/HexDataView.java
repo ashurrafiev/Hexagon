@@ -1,7 +1,5 @@
 package com.xrbpowered.hexdata;
 
-import static com.xrbpowered.hexdata.LevelProgression.*;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;

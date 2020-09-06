@@ -41,15 +41,15 @@ public class HexDataGame  extends UIContainer implements KeyInputHandler {
 		switch(code) {
 			case KeyEvent.VK_ENTER:
 				//status.newMap();
-				break;
+				return true;
 			case KeyEvent.VK_Z:
 				status.surgeButton.toggle();
-				break;
+				return true;
 			case KeyEvent.VK_X:
 				status.shieldButton.toggle();
-				break;
+				return true;
 		}
-		return true;
+		return false;
 	}
 
 	@Override
@@ -61,7 +61,15 @@ public class HexDataGame  extends UIContainer implements KeyInputHandler {
 	}
 
 	public static void main(String[] args) {
-		SwingFrame frame = SwingWindowFactory.use().createFrame("Data Analysis", 1920, 1080);
+		LevelProgression.load();
+		SwingFrame frame = new SwingFrame(SwingWindowFactory.use(), "Data Analysis", 1920, 1080, false, true) {
+			@Override
+			public void onClose() {
+				LevelProgression.forfeit(game.map());
+				LevelProgression.save();
+				super.onClose();
+			}
+		};
 		new HexDataGame(frame.getContainer());
 		frame.maximize();
 		frame.show();

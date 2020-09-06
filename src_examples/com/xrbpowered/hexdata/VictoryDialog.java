@@ -46,6 +46,7 @@ public class VictoryDialog extends UIContainer {
 						HexDataGame.levelUpDialog.setVisible(true);
 					}
 					else {
+						save();
 						HexDataGame.game.newMap();
 					}
 					repaint();

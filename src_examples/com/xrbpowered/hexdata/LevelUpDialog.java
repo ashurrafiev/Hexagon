@@ -75,6 +75,7 @@ public class LevelUpDialog extends UIContainer {
 			public void onClick() {
 				if(!HexDataGame.game.isActive() && selectedOption>=0) {
 					addPerk(level, selectedOption);
+					save();
 					HexDataGame.game.newMap();
 					LevelUpDialog.this.setVisible(false);
 					repaint();

@@ -67,6 +67,7 @@ public class StatusView extends UIContainer {
 	
 	public final ModeButton surgeButton;
 	public final ModeButton shieldButton;
+	public final ClickButton exitButton;
 
 	public Player player;
 	
@@ -74,6 +75,12 @@ public class StatusView extends UIContainer {
 		super(parent);
 		surgeButton = new ModeButton();
 		shieldButton = new ModeButton();
+		exitButton = new ClickButton(this, "EXIT", 120, ClickButton.paletteBlack) {
+			@Override
+			public void onClick() {
+				getBase().getWindow().close();
+			}
+		};
 		setSize(0, 210);
 	}
 	
@@ -89,6 +96,7 @@ public class StatusView extends UIContainer {
 		surgeButton.setLocation(getWidth()/2-surgeButton.getWidth()/2-150, 0);
 		shieldButton.setSize(shieldButton.getWidth(), getHeight());
 		shieldButton.setLocation(getWidth()/2-shieldButton.getWidth()/2+150, 0);
+		exitButton.setLocation(getWidth()-exitButton.getWidth()-60, getHeight()/2-exitButton.getHeight()/2);
 		super.layout();
 	}
 	

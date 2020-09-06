@@ -104,6 +104,7 @@ public class DataMap extends MapBase<DataTile> implements PathMap {
 	public final Point start = new Point();
 	public Player player = new Player();
 	public CoreObject core = null;
+	public boolean justStarted = true;
 	
 	private final Pathfinder distFinder;
 	
@@ -188,6 +189,7 @@ public class DataMap extends MapBase<DataTile> implements PathMap {
 		player = new Player();
 		Random random = new Random();
 		while(!generate(random)) {}
+		justStarted = true;
 	}
 	
 	public boolean isInside(int x, int y) {
@@ -203,6 +205,7 @@ public class DataMap extends MapBase<DataTile> implements PathMap {
 		}
 		updateDists();
 		updateBlocks();
+		justStarted = false;
 	}
 
 	public void updateBlocks() {
