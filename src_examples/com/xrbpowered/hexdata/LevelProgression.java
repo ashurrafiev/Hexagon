@@ -71,7 +71,7 @@ public class LevelProgression {
 			case 1: return "+5 INTEGRITY to DATA CORE";
 			case 2: return "+2 map size";
 			case 3: return "+1 base STRENGTH to all sentries";
-			case 4: return "+5 STRENGTH to DATA CORE";
+			case 4: return "+1 STRENGTH to DATA CORE";
 			case 0: 
 			default: return "+2 base INTEGRITY to all sentries";
 		}
