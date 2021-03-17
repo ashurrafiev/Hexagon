@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Path2D;
 import java.util.ArrayList;
 
+import com.xrbpowered.hexagon.Dir;
 import com.xrbpowered.hexagon.HexView;
 import com.xrbpowered.hexagon.Hexagon;
 import com.xrbpowered.zoomui.GraphAssist;
@@ -45,14 +46,34 @@ public class HexMazeGame extends HexView<HexMazeMap.Tile> implements KeyInputHan
 		return (HexMazeMap) map;
 	}
 
+	private static final Dir[] borders = {Dir.SW, Dir.NW, Dir.N};
+	
 	@Override
 	protected void paintTile(GraphAssist g, int x, int y, HexMazeMap.Tile tile) {
-		g.setColor((tile.pathDir!=null) ? pathColor : tile.type.color);
-		if(getScale()>0.25f)
-			g.graph.fill(hexPath);
-		else
-			g.graph.fill(hexPixel);
 		Point pawn = map().pawn;
+		g.setColor((tile.pathDir!=null) ? pathColor : tile.type.color);
+		if(getScale()>0.25f) {
+			g.graph.fill(hexPath);
+			for(Dir d : borders) {
+				int ax = x+d.dx;
+				int ay = y+d.dy;
+				if(ax>=0 && ax<map.size && ay>=0 && ay<map.size) {
+					HexMazeMap.Tile adj = map.tiles[ax][ay];
+					if(adj!=null && tile.type==adj.type && ((tile.pathDir!=null || pawn.x==x && pawn.y==y)^(adj.pathDir!=null || pawn.x==ax && pawn.y==ay))) {
+						g.pushPureStroke(true);
+						g.pushAntialiasing(true);
+						g.setStroke(1f);
+						g.setColor(pawnColor);
+						g.line(hex.lineX1(d), hex.lineY1(d), hex.lineX2(d), hex.lineY2(d));
+						g.popPureStroke();
+						g.popAntialiasing();
+					}
+				}
+			}
+		}
+		else {
+			g.graph.fill(hexPixel);
+		}
 		if(pawn.x==x && pawn.y==y) {
 			g.pushAntialiasing(true);
 			g.setColor(pawnColor);

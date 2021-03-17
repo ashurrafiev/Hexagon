@@ -58,6 +58,47 @@ public class Hexagon {
 		return p;
 	}
 	
+	public float lineX1(Dir d) {
+		switch(d) {
+			case NW:
+				return -w2-a;
+			case N:
+			case SW:
+				return -w2;
+			case NE:
+			case S:
+				return w2;
+			case SE:
+				return w2+a;
+			default:
+				return 0;
+		}
+	}
+
+	public float lineY1(Dir d) {
+		switch(d) {
+			case NW:
+			case SE:
+				return 0;
+			case N:
+			case NE:
+				return -h;
+			case SW:
+			case S:
+				return h;
+			default:
+				return 0;
+		}
+	}
+	
+	public float lineX2(Dir d) {
+		return lineX1(d.cw());
+	}
+
+	public float lineY2(Dir d) {
+		return lineY1(d.cw());
+	}
+
 	public Shape createCircle(float s) {
 		float r = this.r*s;
 		return new Ellipse2D.Float(-r, -r, r*2f, r*2f);
